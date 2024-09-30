@@ -3,48 +3,53 @@ function love.load()
     love.window.setTitle("spaceship")
     
     love.graphics.setBackgroundColor(1, 1, 1)
-    spaceship = love.graphics.newImage("res/spaceship.PNg")
+
+    --A table can act like a struct.
+    spaceship = {}
+
+    spaceship.sprite = love.graphics.newImage("res/Pulpo pez.png")
     
     local screenWidth, screenHeight = love.graphics.getDimensions()
 
     targetX = screenWidth/2;
     targetY = screenHeight/2;
     
-     
-    -- target.graphics.setColor(1,0,0)
-    
-    
-    posX = 0
-    posY = 0
-    angle = 0
-
-  
-    speed = 300.0
+    spaceship.x = 0
+    spaceship.y = 0
+    spaceship.angle = 0
+    spaceship.speed = 300.0
   
   end
   
   
   function love.update(dt)
    
-    local ox, oy = spaceship:getWidth() * .5, spaceship:getHeight() * .5 -- get center point
+    local ox, oy = spaceship.sprite:getWidth() / 2, spaceship.sprite:getHeight() / 2 -- get center point
 
-    centerX = posX + ox
-    centerY = posY + oy
+    centerX = spaceship.x + ox
+    centerY = spaceship.y + oy
 
-    if centerX < targetX then
-     posX = posX + speed * dt
+    math.floor(centerX)
+    math.floor(centerY)
+    math.floor(targetX)
+    math.floor(targetY)
+
+    errorMargin = 5
+
+    if centerX < targetX - errorMargin then
+    spaceship.x = spaceship.x + spaceship.speed * dt
     end
 
-    if centerX > targetX then
-     posX = posX - speed * dt
+    if centerX > targetX + errorMargin then
+      spaceship.x = spaceship.x - spaceship.speed * dt
     end
    
-    if centerY < targetY then
-     posY = posY + speed * dt
+    if centerY < targetY - errorMargin then
+      spaceship.y = spaceship.y + spaceship.speed * dt
     end
 
-    if centerY > targetY then
-     posY = posY - speed * dt
+    if centerY > targetY + errorMargin then
+      spaceship.y = spaceship.y - spaceship.speed * dt
     end
 
     -- if love.keyboard.isDown("right") then
@@ -69,7 +74,7 @@ function love.load()
   function love.draw()
     
     love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(spaceship, posX, posY, angle)
+    love.graphics.draw(spaceship.sprite, spaceship.x, spaceship.y, spaceship.angle)
     love.graphics.setColor(1,0,0)
     love.graphics.circle("fill", targetX, targetY, 5)
     
