@@ -4,6 +4,20 @@ function love.load()
     
     love.graphics.setBackgroundColor(1, 1, 1)
 
+    local screenWidth, screenHeight = love.graphics.getDimensions()
+
+    animations = {}
+    animations.spriteFrames = 7;
+    animations.currentFrame = 0;
+    animations.fps = 10;
+    animations.timer = 1/animations.fps
+    animations.xOffSet = 0
+
+    -- where the zombie will run
+    targetX = screenWidth-32;
+    targetY = screenHeight/2;
+
+
     --A table can act like a struct.
     zombie = {}
 
@@ -15,12 +29,7 @@ function love.load()
     zombie.spriteDimension = {}
     zombie.spriteDimension.width = zombie.dimensions;
     zombie.spriteDimension.height = zombie.dimensions;
-    
-    local screenWidth, screenHeight = love.graphics.getDimensions()
 
-    targetX = screenWidth/2;
-    targetY = screenHeight/2;
-    
     zombie.x = 0
     zombie.y = 0
     zombie.angle = 0
@@ -32,6 +41,25 @@ function love.load()
   
   function love.update(dt)
    
+    --time between each animation
+    animations.timer = animations.timer - dt
+
+    if animations.timer <= 0 then
+      
+      animations.timer = 1/animations.fps
+      animations.currentFrame = animations.currentFrame + 1
+    
+      if(animations.currentFrame > animations.spriteFrames) then
+        --back to the first frame
+        animations.currentFrame = 0
+      end
+
+      animations.xOffSet = zombie.dimensions * animations.currentFrame
+
+      zombie.sprite:setViewport(animations.xOffSet, zombie.dimensions*2, zombie.dimensions, zombie.dimensions)
+
+    end
+
     local centerX, centerY = (zombie.spriteDimension.width*zombie.scale) / 2, (zombie.spriteDimension.height*zombie.scale) / 2 -- get center point
 
     centerX = zombie.x + centerX
@@ -60,22 +88,6 @@ function love.load()
       zombie.y = zombie.y - zombie.speed * dt
     end
 
-    -- if love.keyboard.isDown("right") then
-    --   posX = posX + speed * dt
-    -- end
-    
-    -- if love.keyboard.isDown("left") then
-    --   posX = posX - speed * dt
-    -- end
-    
-    -- if love.keyboard.isDown("up") then
-    --   posY = posY - speed * dt
-    -- end
-    
-    -- if love.keyboard.isDown("down") then
-    --   posY = posY + speed * dt
-    -- end
-    
   end
   
   
