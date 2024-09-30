@@ -1,6 +1,15 @@
+
+local scene =
+{
+  gamePlay = true,
+  menu = false,
+  paused = false,
+  over = false,
+}
+
 function love.load()
   
-    love.window.setTitle("spaceship")
+    love.window.setTitle("cat vs zombies")
     
     love.graphics.setBackgroundColor(1, 1, 1)
 
@@ -43,12 +52,11 @@ function love.load()
     cat.spriteDimension.width = cat.dimensions;
     cat.spriteDimension.height = cat.dimensions;
 
-    -- where the zombie will run
-    targetX = screenWidth - cat.dimensions;
-    targetY = screenHeight/2;
-    
     cat.scale = 3;
-    cat.x = targetX - (cat.spriteDimension.width*cat.scale)
+    -- where the zombie will run
+    targetX = screenWidth - (cat.spriteDimension.width*cat.scale);
+    targetY = screenHeight/2;
+    cat.x = targetX - (cat.spriteDimension.width*cat.scale)/2
     cat.y = targetY - (cat.spriteDimension.height*cat.scale) / 2
     cat.angle = 0
     cat.speed = 300.0
@@ -61,7 +69,7 @@ function love.load()
     animations.timer = animations.timer - dt
     animate(zombie, zombie.dimensions*2)
     animations.timer = animations.timer - dt
-    animate(cat, 0)
+    animate(cat, dt)
 
     local centerX, centerY = (zombie.spriteDimension.width*zombie.scale) / 2, (zombie.spriteDimension.height*zombie.scale) / 2 -- get center point
 
@@ -105,6 +113,7 @@ function love.load()
   
 
   function animate(character, moveY)
+
     if animations.timer <= 0 then
       
       animations.timer = 1/animations.fps
