@@ -44,21 +44,7 @@ function love.load()
     --time between each animation
     animations.timer = animations.timer - dt
 
-    if animations.timer <= 0 then
-      
-      animations.timer = 1/animations.fps
-      animations.currentFrame = animations.currentFrame + 1
-    
-      if(animations.currentFrame > animations.spriteFrames) then
-        --back to the first frame
-        animations.currentFrame = 0
-      end
-
-      animations.xOffSet = zombie.dimensions * animations.currentFrame
-
-      zombie.sprite:setViewport(animations.xOffSet, zombie.dimensions*2, zombie.dimensions, zombie.dimensions)
-
-    end
+    animate(zombie)
 
     local centerX, centerY = (zombie.spriteDimension.width*zombie.scale) / 2, (zombie.spriteDimension.height*zombie.scale) / 2 -- get center point
 
@@ -100,3 +86,21 @@ function love.load()
     
   end
   
+
+  function animate(character)
+    if animations.timer <= 0 then
+      
+      animations.timer = 1/animations.fps
+      animations.currentFrame = animations.currentFrame + 1
+    
+      if(animations.currentFrame > animations.spriteFrames) then
+        --back to the first frame
+        animations.currentFrame = 0
+      end
+
+      animations.xOffSet = character.dimensions * animations.currentFrame
+
+      character.sprite:setViewport(animations.xOffSet, character.dimensions*2, character.dimensions, character.dimensions)
+
+    end
+  end
