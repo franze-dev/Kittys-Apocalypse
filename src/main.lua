@@ -7,44 +7,61 @@ function love.load()
     local screenWidth, screenHeight = love.graphics.getDimensions()
 
     animations = {}
-    animations.spriteFrames = 7;
-    animations.currentFrame = 0;
     animations.fps = 10;
     animations.timer = 1/animations.fps
     animations.xOffSet = 0
 
-    -- where the zombie will run
-    targetX = screenWidth-32;
-    targetY = screenHeight/2;
-
-
     --A table can act like a struct.
-    zombie = {}
-
+    
     love.graphics.setDefaultFilter('nearest', 'nearest')
-
-    zombie.spriteSheet = love.graphics.newImage("res/Zombie.png")
+    
+    zombie = {}
+    zombie.spriteSheet = {}
+    zombie.spriteSheet.sheet = love.graphics.newImage("res/Zombie.png")
+    zombie.spriteSheet.frames = 7
+    zombie.spriteSheet.currentFrame = 0
     zombie.dimensions = 32;
-    zombie.sprite = love.graphics.newQuad(0, zombie.dimensions*2, zombie.dimensions, zombie.dimensions, zombie.spriteSheet:getDimensions())
+    zombie.sprite = love.graphics.newQuad(0, zombie.dimensions*2, zombie.dimensions, zombie.dimensions, zombie.spriteSheet.sheet:getDimensions())
     zombie.spriteDimension = {}
     zombie.spriteDimension.width = zombie.dimensions;
     zombie.spriteDimension.height = zombie.dimensions;
-
+    
     zombie.x = 0
     zombie.y = 0
     zombie.angle = 0
     zombie.speed = 300.0
     zombie.scale = 3;
-  
+    
+    cat = {}
+    cat.spriteSheet = {}
+    cat.spriteSheet.sheet = love.graphics.newImage("res/IdleCatt.png")
+    cat.spriteSheet.frames = 6
+    cat.spriteSheet.currentFrame = 0
+    cat.dimensions = 32;
+    cat.sprite = love.graphics.newQuad(0, 0, cat.dimensions, cat.dimensions, cat.spriteSheet.sheet:getDimensions())
+    cat.spriteDimension = {}
+    cat.spriteDimension.width = cat.dimensions;
+    cat.spriteDimension.height = cat.dimensions;
+
+    -- where the zombie will run
+    targetX = screenWidth - cat.dimensions;
+    targetY = screenHeight/2;
+    
+    cat.scale = 3;
+    cat.x = targetX - (cat.spriteDimension.width*cat.scale)
+    cat.y = targetY - (cat.spriteDimension.height*cat.scale) / 2
+    cat.angle = 0
+    cat.speed = 300.0
   end
   
   
   function love.update(dt)
-   
+    
     --time between each animation
     animations.timer = animations.timer - dt
-
-    animate(zombie)
+    animate(zombie, zombie.dimensions*2)
+    animations.timer = animations.timer - dt
+    animate(cat, 0)
 
     local centerX, centerY = (zombie.spriteDimension.width*zombie.scale) / 2, (zombie.spriteDimension.height*zombie.scale) / 2 -- get center point
 
@@ -80,27 +97,27 @@ function love.load()
   function love.draw()
     
     love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(zombie.spriteSheet, zombie.sprite, zombie.x, zombie.y, zombie.angle, zombie.scale)
+    love.graphics.draw(zombie.spriteSheet.sheet, zombie.sprite, zombie.x, zombie.y, zombie.angle, zombie.scale)
+    love.graphics.draw(cat.spriteSheet.sheet, cat.sprite, cat.x, cat.y, cat.angle, cat.scale)
     love.graphics.setColor(1,0,0)
-    love.graphics.circle("fill", targetX, targetY, 5)
     
   end
   
 
-  function animate(character)
+  function animate(character, moveY)
     if animations.timer <= 0 then
       
       animations.timer = 1/animations.fps
-      animations.currentFrame = animations.currentFrame + 1
+      character.spriteSheet.currentFrame = character.spriteSheet.currentFrame + 1
     
-      if(animations.currentFrame > animations.spriteFrames) then
+      if(character.spriteSheet.currentFrame > character.spriteSheet.frames) then
         --back to the first frame
-        animations.currentFrame = 0
+        character.spriteSheet.currentFrame = 0
       end
 
-      animations.xOffSet = character.dimensions * animations.currentFrame
+      animations.xOffSet = character.dimensions * character.spriteSheet.currentFrame
 
-      character.sprite:setViewport(animations.xOffSet, character.dimensions*2, character.dimensions, character.dimensions)
+      character.sprite:setViewport(animations.xOffSet, moveY, character.dimensions, character.dimensions)
 
     end
   end
