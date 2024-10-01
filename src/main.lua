@@ -44,7 +44,7 @@ function gamePlayDraw()
   love.graphics.setColor(1, 1, 1)
   for i = 1, #zombies do
     if zombies[i].x < cat.x then
-    love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, zombies[i].scale)
+      love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, zombies[i].scale)
     else 
       love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, -zombies[i].scale, zombies[i].scale)
     end
@@ -143,9 +143,9 @@ function animate(character, moveY)
       --back to the first frame
       character.spriteSheet.currentFrame = 0
     end
-    
+  
     animations.xOffSet = character.dimensions * character.spriteSheet.currentFrame
-    
+
     character.sprite:setViewport(animations.xOffSet, moveY, character.dimensions, character.dimensions)
     
   end
@@ -210,7 +210,7 @@ function moveZombie(zombie, dt)
 end
 
 function checkZombieShot(myZombie, pos)
-
+  
   if myZombie then
     local mousePosX, mousePosY = love.mouse.getPosition()
 
@@ -311,5 +311,5 @@ function getRandomZombieSpawn()
   end
 
   return posX, posY
-  
+
 end
