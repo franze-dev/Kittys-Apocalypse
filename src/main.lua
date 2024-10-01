@@ -57,11 +57,9 @@ function gamePlayUpdate(dt)
     if zombieAttackTimer <= 0 then
       zombieAttackTimer = 1/zombieCoolDown
     end
-    randomPos = 0
     for i = 1, groups do
-      randomPos = math.random(0, screenHeight)
-      print(randomPos)
-      table.insert(zombies, i, newZombie(0,randomPos))
+      local posX, posY = getRandomZombieSpawn()
+      table.insert(zombies, i, newZombie(posX,posY))
     end
   end
   
@@ -97,15 +95,11 @@ function gamePlayInit()
 
   zombies = {}
 
-  randomPos = 0
+  local posX, posY = getRandomZombieSpawn()
 
   for i = 1, groups do
-    randomPos = math.random(0, screenHeight)
-    print(randomPos)
-    table.insert(zombies, i, newZombie(0,randomPos))
+    table.insert(zombies, i, newZombie(posX,posY))
   end
-  
-  print(randomPos)
 
   cat = {}
   cat.spriteSheet = {}
@@ -120,7 +114,7 @@ function gamePlayInit()
   
   cat.scale = 3;
   -- where the zombie will run
-  targetX = screenWidth - (cat.spriteDimension.width*cat.scale);
+  targetX = screenWidth /2;
   targetY = screenHeight/2;
   cat.x = targetX - (cat.spriteDimension.width*cat.scale)/2
   cat.y = targetY - (cat.spriteDimension.height*cat.scale) / 2
@@ -149,6 +143,7 @@ end
 
 function newZombie(x, y)
   local zombie = {}
+
   zombieId = zombieId + 1
   zombie.id = zombieId
   zombie.spriteSheet = {}
@@ -156,7 +151,7 @@ function newZombie(x, y)
   zombie.spriteSheet.frames = 7
   zombie.spriteSheet.currentFrame = 0
   zombie.dimensions = 32;
-  zombie.sprite = love.graphics.newQuad(0, zombie.dimensions*2, zombie.dimensions, zombie.dimensions, zombie.spriteSheet.sheet1:getDimensions())
+  zombie.sprite = love.graphics.newQuad(0, zombie.dimensions*2, zombie.dimensions, zombie.dimensions, zombie.spriteSheet.sheet:getDimensions())
   zombie.spriteDimension = {}
   zombie.spriteDimension.width = zombie.dimensions;
   zombie.spriteDimension.height = zombie.dimensions;
@@ -194,7 +189,6 @@ function moveZombie(zombie, dt)
     zombie.x = zombie.x - zombie.speed * dt
   end
   
- -- if centerX >= closeArea then
   if centerY < targetY - errorMargin then
     zombie.y = zombie.y + (zombie.speed/2) * dt
   end
@@ -202,18 +196,63 @@ function moveZombie(zombie, dt)
   if centerY > targetY + errorMargin then
     zombie.y = zombie.y - (zombie.speed/2) * dt
   end
- -- end
 
 end
 
 function checkZombieShot(myZombie, pos)
-  
-  mousePosX, mousePosY = love.mouse.getPosition()
-
-  leftClick = 1
 
   if myZombie then
-    if mousePosX >= myZombie.x and mousePosX <= myZombie.x + myZombie.dimensions*myZombie.scale and mousePosY >= myZombie.y and mousePosY <= myZombie.y + myZombie.dimensions*myZombie.scale then
+    local mousePosX, mousePosY = love.mouse.getPosition()
+
+    local leftClick = 1
+
+    local zombieCorners = {}
+
+    zombieCorners.first = {} 
+    zombieCorners.second = {} 
+    zombieCorners.third = {} 
+    zombieCorners.fourth = {} 
+
+    if myZombie.x >= cat.x then
+      zombieCorners.first = {
+        x = myZombie.x - myZombie.dimensions*myZombie.scale,
+        y = myZombie.y
+      }
+      zombieCorners.second = {
+        x = myZombie.x,
+        y = myZombie.y
+
+      }
+      zombieCorners.third = {
+        x = myZombie.x - myZombie.dimensions*myZombie.scale,
+        y = myZombie.y + myZombie.dimensions*myZombie.scale
+      }
+      zombieCorners.fourth = {
+        x = myZombie.x,
+        y = myZombie.y + myZombie.dimensions*myZombie.scale
+      }
+    elseif myZombie.x < cat.x then
+      zombieCorners.first = {
+        x = myZombie.x,
+        y = myZombie.y
+      }
+      zombieCorners.second = {
+        x = myZombie.x + myZombie.dimensions*myZombie.scale,
+        y = myZombie.y
+
+      }
+      zombieCorners.third = {
+        x = myZombie.x,
+        y = myZombie.y + myZombie.dimensions*myZombie.scale
+      }
+      zombieCorners.fourth = {
+        x = myZombie.x + myZombie.dimensions*myZombie.scale,
+        y = myZombie.y + myZombie.dimensions*myZombie.scale
+      }
+    end
+
+
+    if mousePosX >= zombieCorners.first.x and mousePosX <= zombieCorners.second.x and mousePosY >= zombieCorners.first.y and mousePosY <= zombieCorners.fourth.y then
       if love.mouse.isDown(leftClick) then
         table.remove(zombies, pos)
       end
