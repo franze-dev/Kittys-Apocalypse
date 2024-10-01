@@ -43,7 +43,11 @@ end
 function gamePlayDraw()
   love.graphics.setColor(1, 1, 1)
   for i = 1, #zombies do
+    if zombies[i].x < cat.x then
     love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, zombies[i].scale)
+    else 
+      love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, -zombies[i].scale, zombies[i].scale)
+    end
   end
 
   love.graphics.draw(cat.spriteSheet.sheet, cat.sprite, cat.x, cat.y, cat.angle, cat.scale)
@@ -91,7 +95,7 @@ function gamePlayInit()
   
   zombieCoolDown = 1
   zombieAttackTimer = 1/zombieCoolDown 
-  groups = 5
+  groups = 2
 
   zombies = {}
 
@@ -258,5 +262,48 @@ function checkZombieShot(myZombie, pos)
       end
     end
   end
+  
+end
+
+function checkCatHit(myZombie, pos)
+
+  if myZombie then
+    if (myZombie.x + myZombie.dimensions*myZombie.scale >= cat.x and myZombie.x <= cat.x + cat.dimensions*cat.scale) and (myZombie.y + myZombie.dimensions*myZombie.scale >= cat.y and myZombie.y <= cat.y + cat.dimensions*cat.scale) then
+    
+      table.remove(zombies, pos)
+  
+    end
+  end
+end
+
+function getRandomZombieSpawn()
+  local zombieSpawn = {
+    above = 1,
+    under = 2,
+    left = 3,
+    right = 4
+  }
+  
+  local posX, posY = 0, 0
+
+  local randomPos = math.random(zombieSpawn.above, zombieSpawn.right)
+
+  local randomRange1, randomRange2 = 100, 500
+
+  if randomPos == zombieSpawn.left then
+    posX = 0;
+    posY = math.random(randomRange1,randomRange2)
+  elseif randomPos == zombieSpawn.right then
+    posX = screenWidth - 32
+    posY = math.random(randomRange1, randomRange2)
+  elseif randomPos == zombieSpawn.above then
+    posY = 0
+    posX = math.random(randomRange1, randomRange2)
+  elseif randomPos == zombieSpawn.under then
+    posY = screenHeight- 32
+    posX = math.random(randomRange1, randomRange2)
+  end
+
+  return posX, posY
   
 end
