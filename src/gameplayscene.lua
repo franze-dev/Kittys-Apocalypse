@@ -1,6 +1,6 @@
 require "characters"
 
-function Init()
+function Gameplay_Init()
     
     zombieId = 0;
     animations = {}
@@ -41,7 +41,7 @@ function Init()
     cat.speed = 300.0
 end
 
-function Update(dt)
+function Gameplay_Update(dt)
     
     zombieAttackTimer = zombieAttackTimer - dt
     if #zombies == 0 or zombieAttackTimer <= 0 then
@@ -78,7 +78,7 @@ function Update(dt)
     
 end
 
-function Draw()
+function Gameplay_Draw()
     love.graphics.setColor(1, 1, 1)
     for i = 1, #zombies do
       if zombies[i].x < cat.x then

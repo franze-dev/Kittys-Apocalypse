@@ -1,12 +1,5 @@
 require "gameplayscene"
-
-local scene =
-{
-  gamePlay = true,
-  menu = false,
-  paused = false,
-  over = false,
-}
+require "scenemanager"
 
 function love.load()
   
@@ -22,19 +15,20 @@ function love.load()
     
   love.graphics.setDefaultFilter('nearest', 'nearest')
     
-  Init()
+  Gameplay_Init()
 end
 
 function love.update(dt)
   
-  if scene.gamePlay then
-    Update(dt)
+  print(getCurrentScene())
+  if getCurrentScene() == scenes.gamePlay then
+    Gameplay_Update(dt)
   end
 end
 
 function love.draw()
   
-  if scene.gamePlay then
-    Draw()
+  if getCurrentScene() == scenes.gamePlay then
+    Gameplay_Draw()
   end
 end
