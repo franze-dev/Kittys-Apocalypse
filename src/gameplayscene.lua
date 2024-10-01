@@ -22,7 +22,7 @@ function Init()
   
     cat = {}
     cat.spriteSheet = {}
-    cat.spriteSheet.sheet = love.graphics.newImage("res/IdleCatt.png")
+    cat.spriteSheet.sheet = love.graphics.newImage("res/sprites/IdleCatt.png")
     cat.spriteSheet.frames = 6
     cat.spriteSheet.currentFrame = 0
     cat.dimensions = 32;

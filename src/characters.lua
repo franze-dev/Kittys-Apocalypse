@@ -24,7 +24,7 @@ function newZombie(x, y)
     zombieId = zombieId + 1
     zombie.id = zombieId
     zombie.spriteSheet = {}
-    zombie.spriteSheet.sheet = love.graphics.newImage("res/Zombie.png")
+    zombie.spriteSheet.sheet = love.graphics.newImage("res/sprites/Zombie.png")
     zombie.spriteSheet.frames = 7
     zombie.spriteSheet.currentFrame = 0
     zombie.dimensions = 32;
