@@ -83,6 +83,12 @@ function gamePlayUpdate(dt)
     myZomb = zombies[i]
     checkZombieShot(myZomb, i)
   end
+
+  for i = 1, #zombies do
+    myZomb = zombies[i]
+    checkCatHit(myZomb, i)
+  end
+
 end
 
 function gamePlayInit()
