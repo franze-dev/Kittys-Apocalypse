@@ -169,7 +169,7 @@ function newZombie(x, y)
   zombie.x = x
   zombie.y = y
   zombie.angle = 0
-  randomSpeed = math.random(100, 300);
+  local randomSpeed = math.random(100, 300);
   zombie.speed = randomSpeed
   zombie.scale = 3;
 
