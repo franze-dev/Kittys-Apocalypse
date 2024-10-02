@@ -8,7 +8,7 @@ function love.load()
   math.randomseed( os.time() )
 
   love.window.setTitle("cat vs zombies")
-    
+
   love.graphics.setBackgroundColor(1, 1, 1)
 
   screenWidth, screenHeight = love.graphics.getDimensions()

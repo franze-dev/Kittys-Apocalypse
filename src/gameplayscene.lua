@@ -26,39 +26,40 @@ function Gameplay_Init()
 end
 
 function Gameplay_Update(dt)
-    
-    zombieAttackTimer = zombieAttackTimer - dt
-    if #zombies == 0 or zombieAttackTimer <= 0 then
-      if zombieAttackTimer <= 0 then
-        zombieAttackTimer = 1/zombieCoolDown
-      end
-      for i = 1, groups do
-        local posX, posY = getRandomZombieSpawn()
-        table.insert(zombies, i, newZombie(posX,posY))
-      end
-    end
-    
-    for i = 1, #zombies do
-      --time between each animation
-      animations.timer = animations.timer - dt
-      animate(zombies[i], zombies[i].dimensions*2)
-    end
-    animations.timer = animations.timer - dt
-    animate(cat, dt)
-    
-    for i = 1,  #zombies do
-        moveZombie(zombies[i], dt)
-    end
   
-    for i = 1, #zombies do
-      myZomb = zombies[i]
-      checkZombieShot(myZomb, i)
+  zombieAttackTimer = zombieAttackTimer - dt
+  if #zombies == 0 or zombieAttackTimer <= 0 then
+    if zombieAttackTimer <= 0 then
+      zombieAttackTimer = 1/zombieCoolDown
     end
+    for i = 1, groups do
+      local posX, posY = getRandomZombieSpawn()
+      table.insert(zombies, i, newZombie(posX,posY))
+    end
+  end
     
-    for i = 1, #zombies do
-        myZomb = zombies[i]
-        checkCatHit(myZomb, i)
-    end
+  for i = 1, #zombies do
+    --time between each animation
+    animations.timer = animations.timer - dt
+    animate(zombies[i], zombies[i].dimensions*2)
+  end
+  animations.timer = animations.timer - dt
+
+  animate(cat, dt)
+    
+  for i = 1, #zombies do
+    myZomb = zombies[i]
+    checkZombieShot(myZomb, i)
+  end
+
+  for i = 1,  #zombies do
+    moveZombie(zombies[i], dt)
+  end
+    
+  for i = 1, #zombies do
+    myZomb = zombies[i]
+    checkCatHit(myZomb, i)
+  end
     
 end
 

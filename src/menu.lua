@@ -53,7 +53,6 @@ function Menu_Update()
     checkSceneChange(creditsButton, scenes.creditsScene)
 
     checkSceneChange(exitButton, scenes.overScene)
-
 end
 
 function Menu_Draw()
@@ -61,7 +60,7 @@ function Menu_Draw()
     drawText(titleFont1, title1)
     drawText(titleFont2, title2)
     
-    drawButton(titleFont2, playButton)
+    drawButton(titleFont1, playButton)
     drawButton(titleFont1, creditsButton)
     drawButton(titleFont1, exitButton)
 
