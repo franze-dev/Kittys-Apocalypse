@@ -33,19 +33,19 @@ function Credits_Init()
         a = 1.0
     }
 
-    backToMenuButton = newButton("BACK TO MENU", titleFont2, screenWidth/2 - creditsButton.width/2, screenHeight - creditsButton.height - buttonsPadding, creditsButton.width, creditsButton.height, creditsButton.default, creditsButton.highLight, generalTextColor)
+    backToMenuButton = newButton("BACK TO MENU", titleFont2, screenWidth/2 - creditsButton.width/2, screenHeight - creditsButton.height - titlePadding/2, creditsButton.width, creditsButton.height, creditsButton.default, creditsButton.highLight, generalTextColor)
     
     credits = {}
     dev = "Developer: Sofi Alvarez"
-    cat = "Three Color Cat: ToffeeBunny (Itch.io user)"
+    catCredits = "Three Color Cat: ToffeeBunny (Itch.io user)"
     zombie = "Zombies: IronnButterfly (Itch.io user)"
     shots = "Explosions: Boldo boldin (Itch.io user)"
+    bg = "Background: Henrique Baldo (ArtStation user)"
     table.insert(credits, 1, dev)
-    table.insert(credits, 2, cat)
+    table.insert(credits, 2, catCredits)
     table.insert(credits, 3, zombie)
     table.insert(credits, 4, shots)
-
-    print(#credits)
+    table.insert(credits, 5, bg)
 
 end
 
@@ -68,17 +68,18 @@ end
 function drawCreditsTextBlock()
     
     love.graphics.setColor(rectColor.r, rectColor.g, rectColor.b, rectColor.a)
-    love.graphics.rectangle('fill', creditsButton.x, creditsTitle.y + creditsTitle.love:getHeight() + titlePadding, backToMenuButton.width, screenHeight/2 - (backToMenuButton.height + titlePadding))
+    love.graphics.rectangle('fill', creditsButton.x, creditsTitle.y + creditsTitle.love:getHeight() + titlePadding, backToMenuButton.width, screenHeight/2 - (backToMenuButton.height))
     
     local baseY = creditsTitle.y + creditsTitle.love:getHeight()
-    local startPadding = 30
-    local creditsPadding = startPadding
+    local startPaddingY = 30
+    local creditsPaddingY = startPaddingY
+    local creditsPaddingX = 10
 
     for i = 1, #credits do
-        creditsPadding = startPadding
-        baseY = baseY + creditsPadding + (creditsPadding * 1/i)
+        creditsPaddingY = startPaddingY
+        baseY = baseY + creditsPaddingY + (creditsPaddingY * 1/i)
         print(baseY)
-        text = newText((creditsButton.x - creditsPadding/2) + creditsPadding, baseY, credits[i], 20, creditsFont, generalTextColor)
+        text = newText(creditsButton.x + creditsPaddingX, baseY, credits[i], 20, creditsFont, generalTextColor)
         drawText(creditsFont, text)
     end
 
