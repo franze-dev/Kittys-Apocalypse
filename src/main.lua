@@ -1,4 +1,5 @@
 require "gameplayscene"
+require "menu"
 require "scenemanager"
 
 function love.load()
@@ -11,19 +12,23 @@ function love.load()
 
   screenWidth, screenHeight = love.graphics.getDimensions()
 
-  --A table can act like a struct.
-    
   love.graphics.setDefaultFilter('nearest', 'nearest')
     
   Gameplay_Init()
+  Menu_Init()
+
 end
 
 function love.update(dt)
   
-  print(getCurrentScene())
   if getCurrentScene() == scenes.gamePlay then
     Gameplay_Update(dt)
   end
+
+  -- if getCurrentScene() == scenes.menu then
+  --   Menu_Update()
+  -- end
+
 end
 
 function love.draw()
@@ -31,4 +36,10 @@ function love.draw()
   if getCurrentScene() == scenes.gamePlay then
     Gameplay_Draw()
   end
+
+  
+  if getCurrentScene() == scenes.menu then
+    Menu_Draw()
+  end
+
 end
