@@ -1,23 +1,46 @@
 
 function animate(character, moveY)
-  
-    if animations.timer <= 0 then
-      
-      animations.timer = 1/animations.fps
-      character.spriteSheet.currentFrame = character.spriteSheet.currentFrame + 1
-      
-      if(character.spriteSheet.currentFrame > character.spriteSheet.frames) then
-        --back to the first frame
-        character.spriteSheet.currentFrame = 0
-      end
+
+  if animations.timer <= 0 then
     
-      animations.xOffSet = character.dimensions * character.spriteSheet.currentFrame
-  
-      character.sprite:setViewport(animations.xOffSet, moveY, character.dimensions, character.dimensions)
+    animations.timer = 1/animations.fps
+    character.spriteSheet.currentFrame = character.spriteSheet.currentFrame + 1
       
+      
+    if(character.spriteSheet.currentFrame > character.spriteSheet.frames) then
+      --back to the first frame
+      character.spriteSheet.currentFrame = 0
     end
+      
+    animations.xOffSet = character.dimensions * character.spriteSheet.currentFrame
+      
+    character.sprite:setViewport(animations.xOffSet, moveY, character.dimensions, character.dimensions)
   end
-  
+end
+
+function newCat()
+  local myCat = {}
+  myCat.spriteSheet = {}
+  myCat.spriteSheet.sheet = love.graphics.newImage("res/sprites/IdleCatt.png")
+  myCat.spriteSheet.frames = 6
+  myCat.spriteSheet.currentFrame = 0
+  myCat.dimensions = 32
+  myCat.sprite = love.graphics.newQuad(0, 0, myCat.dimensions, myCat.dimensions, myCat.spriteSheet.sheet:getDimensions())
+  myCat.spriteDimension = {}
+  myCat.spriteDimension.width = myCat.dimensions
+  myCat.spriteDimension.height = myCat.dimensions
+    
+  myCat.scale = 3
+
+  print(screenWidth, screenHeight)
+
+  myCat.x = screenWidth / 2 - (myCat.spriteDimension.width*myCat.scale)/2
+  myCat.y = screenHeight / 2 - (myCat.spriteDimension.height*myCat.scale) / 2
+  myCat.angle = 0
+  myCat.speed = 300.0
+  return myCat
+end  
+
 function newZombie(x, y)
     local zombie = {}
   
@@ -27,18 +50,18 @@ function newZombie(x, y)
     zombie.spriteSheet.sheet = love.graphics.newImage("res/sprites/Zombie.png")
     zombie.spriteSheet.frames = 7
     zombie.spriteSheet.currentFrame = 0
-    zombie.dimensions = 32;
+    zombie.dimensions = 32
     zombie.sprite = love.graphics.newQuad(0, zombie.dimensions*2, zombie.dimensions, zombie.dimensions, zombie.spriteSheet.sheet:getDimensions())
     zombie.spriteDimension = {}
-    zombie.spriteDimension.width = zombie.dimensions;
-    zombie.spriteDimension.height = zombie.dimensions;
+    zombie.spriteDimension.width = zombie.dimensions
+    zombie.spriteDimension.height = zombie.dimensions
     
     zombie.x = x
     zombie.y = y
     zombie.angle = 0
-    local randomSpeed = math.random(100, 300);
+    local randomSpeed = math.random(100, 300)
     zombie.speed = randomSpeed
-    zombie.scale = 3;
+    zombie.scale = 3
   
     return zombie
 end
@@ -51,6 +74,10 @@ function moveZombie(zombie, dt)
   
     math.floor(centerX)
     math.floor(centerY)
+
+    local targetX = screenWidth/2
+    local targetY = screenHeight/2
+
     math.floor(targetX)
     math.floor(targetY)
   
@@ -78,19 +105,20 @@ end
   
 function checkZombieShot(myZombie, pos)
     
-    if myZombie then
-      local mousePosX, mousePosY = love.mouse.getPosition()
+  if myZombie then
+    local mousePosX, mousePosY = love.mouse.getPosition()
   
-      local leftClick = 1
+    local leftClick = 1
   
-      local zombieCorners = {}
+    local zombieCorners = {}
   
-      zombieCorners.first = {} 
-      zombieCorners.second = {} 
-      zombieCorners.third = {} 
-      zombieCorners.fourth = {} 
+    zombieCorners.first = {} 
+    zombieCorners.second = {} 
+    zombieCorners.third = {} 
+    zombieCorners.fourth = {} 
   
-      if myZombie.x >= cat.x then
+
+    if myZombie.x >= cat.x then
         zombieCorners.first = {
           x = myZombie.x - myZombie.dimensions*myZombie.scale,
           y = myZombie.y
@@ -108,7 +136,7 @@ function checkZombieShot(myZombie, pos)
           x = myZombie.x,
           y = myZombie.y + myZombie.dimensions*myZombie.scale
         }
-      elseif myZombie.x < cat.x then
+    elseif myZombie.x < cat.x then
         zombieCorners.first = {
           x = myZombie.x,
           y = myZombie.y
@@ -164,7 +192,7 @@ function getRandomZombieSpawn()
     local randomRange1, randomRange2 = 100, 500
   
     if randomPos == zombieSpawn.left then
-      posX = 0;
+      posX = 0
       posY = math.random(randomRange1,randomRange2)
     elseif randomPos == zombieSpawn.right then
       posX = screenWidth - 32
