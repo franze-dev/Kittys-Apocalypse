@@ -12,11 +12,13 @@ function newText(x, y, content, size, fontDir, color)
 end
 
 -- the color has to be a table with rgba
-function newButton(content, font, x, y, width, height, buttonColor, textColor)
+function newButton(content, font, x, y, width, height, buttonColor, buttonHighlight, textColor)
     local button = {}
     button.x = x
     button.y = y
-    button.color = buttonColor
+    button.currentColor = buttonColor
+    button.highLight = buttonHighlight
+    button.default = buttonColor
     button.width = width
     button.text = newText(x, y, content, height/2, font, textColor)
     button.text.x = button.text.x + button.text.love:getWidth()/2
