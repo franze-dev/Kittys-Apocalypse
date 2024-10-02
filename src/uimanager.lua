@@ -36,10 +36,30 @@ function drawText(fontDir, text)
 
 end
 
-function drawButton(button)
+function drawButton(textFontDir, button)
 
-    love.graphics.setColor(button.color.r, button.color.g, button.color.b, button.color.a)
-    love.graphics.rectangle(button.x, button.y, button.width, button.height)
-    love.graphics.setColor(button.text.color.r, button.text.color.g, button.text.color.b, button.text.color.a)
-    drawText(button.text, 0, 'center')
+    love.graphics.setColor(button.currentColor.r, button.currentColor.g, button.currentColor.b)
+    love.graphics.rectangle('fill', button.x, button.y, button.width, button.height)
+    drawText(textFontDir, button.text)
+end
+
+function isMouseOnButton(button)
+    if love.mouse.getX() >= button.x and love.mouse.getX() <= button.x + button.width and love.mouse.getY() >= button.y and love.mouse.getY() <= button.y + button.height then
+        return true
+    end
+    return false
+end
+
+function checkSceneChange(button, scene)
+    
+    if isMouseOnButton(button) then
+        button.currentColor = button.highLight
+        if love.mouse.isDown(1) then
+            print(scene)
+            setCurrentScene(scene)
+        end
+    else
+        button.currentColor = button.default
+    end
+    
 end
