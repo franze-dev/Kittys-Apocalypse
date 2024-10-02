@@ -20,9 +20,10 @@ function newButton(content, font, x, y, width, height, buttonColor, buttonHighli
     button.highLight = buttonHighlight
     button.default = buttonColor
     button.width = width
+    button.height = height
     button.text = newText(x, y, content, height/2, font, textColor)
-    button.text.x = button.text.x + button.text.love:getWidth()/2
-    button.text.y = button.text.y + button.text.love:getHeight()/2
+    button.text.x = x + width/2 - button.text.love:getWidth()/2
+    button.text.y = y + height/2 - button.text.love:getHeight()/2
     
     return button
 end
