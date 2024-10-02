@@ -1,16 +1,18 @@
 require "characters"
 
 function Gameplay_Init()
-    
-    zombieId = 0;
-    animations = {}
-    animations.fps = 30;
-    animations.timer = 1/animations.fps
-    animations.xOffSet = 0
-    
-    zombieCoolDown = 1
-    zombieAttackTimer = 1/zombieCoolDown 
-    groups = 2
+  
+  gameBackground = "res/sprites/background.png"
+
+  zombieId = 0
+  animations = {}
+  animations.fps = 30
+  animations.timer = 1/animations.fps
+  animations.xOffSet = 0
+  
+  zombieCoolDown = 1
+  zombieAttackTimer = 1/zombieCoolDown 
+  groups = 2
   
     zombies = {}
 
@@ -79,15 +81,19 @@ function Gameplay_Update(dt)
 end
 
 function Gameplay_Draw()
-    love.graphics.setColor(1, 1, 1)
-    for i = 1, #zombies do
-      if zombies[i].x < cat.x then
-        love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, zombies[i].scale)
-      else 
-        love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, -zombies[i].scale, zombies[i].scale)
-      end
+  drawBackground(gameBackground)
+
+  love.graphics.setColor(1, 1, 1)
+
+  for i = 1, #zombies do
+    if zombies[i].x < cat.x then
+      love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, zombies[i].scale)
+    else 
+       love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, -zombies[i].scale, zombies[i].scale)
     end
+  end
   
-    love.graphics.draw(cat.spriteSheet.sheet, cat.sprite, cat.x, cat.y, cat.angle, cat.scale)
-    love.graphics.setColor(1,0,0)
+  love.graphics.draw(cat.spriteSheet.sheet, cat.sprite, cat.x, cat.y, cat.angle, cat.scale)
+  love.graphics.setColor(1,0,0)
+
 end

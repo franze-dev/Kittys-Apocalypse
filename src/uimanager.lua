@@ -63,3 +63,11 @@ function checkSceneChange(button, scene)
     end
     
 end
+
+function drawBackground(bgDir)
+    
+    local myBackground = love.graphics.newImage(bgDir)
+    love.graphics.setColor(1,1,1,1)
+    love.graphics.draw(myBackground, 0, 0, 0, 1, 1)
+    
+end
