@@ -23,7 +23,7 @@ end
 
 function love.update(dt)
   
-  if getCurrentScene() == scenes.gamePlay then
+  if getCurrentScene() == scenes.gamePlayScene then
     Gameplay_Update(dt)
   end
 
@@ -44,12 +44,11 @@ end
 
 function love.draw()
   
-  if getCurrentScene() == scenes.gamePlay then
+  if getCurrentScene() == scenes.gamePlayScene then
     Gameplay_Draw()
   end
 
-  
-  if getCurrentScene() == scenes.menu then
+  if getCurrentScene() == scenes.menuScene then
     Menu_Draw()
   end
 

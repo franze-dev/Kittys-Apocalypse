@@ -1,17 +1,18 @@
 
 scenes = {
-  gamePlay = 1,
-  menu = 2,
-  paused = 3,
-  over = 4
+  gamePlayScene = 1,
+  menuScene = 2,
+  pausedScene = 3,
+  creditsScene = 4,
+  overScene = 5
 }
 
-local currentScene = scenes.menu
+local currentScene = scenes.menuScene
 
 function getCurrentScene()
     return currentScene
 end
 
-function setCurrentScene(scene)
-    currentScene = scene
+function setCurrentScene(myScene)
+    currentScene = myScene
 end
