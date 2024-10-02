@@ -14,33 +14,15 @@ function Gameplay_Init()
   zombieAttackTimer = 1/zombieCoolDown 
   groups = 2
   
-    zombies = {}
-
-    local posX, posY = getRandomZombieSpawn()
+  zombies = {}
   
-    for i = 1, groups do
-      table.insert(zombies, i, newZombie(posX,posY))
-    end
+  local posX, posY = getRandomZombieSpawn()
   
-    cat = {}
-    cat.spriteSheet = {}
-    cat.spriteSheet.sheet = love.graphics.newImage("res/sprites/IdleCatt.png")
-    cat.spriteSheet.frames = 6
-    cat.spriteSheet.currentFrame = 0
-    cat.dimensions = 32;
-    cat.sprite = love.graphics.newQuad(0, 0, cat.dimensions, cat.dimensions, cat.spriteSheet.sheet:getDimensions())
-    cat.spriteDimension = {}
-    cat.spriteDimension.width = cat.dimensions;
-    cat.spriteDimension.height = cat.dimensions;
-    
-    cat.scale = 3;
-    -- where the zombie will run
-    targetX = screenWidth /2;
-    targetY = screenHeight/2;
-    cat.x = targetX - (cat.spriteDimension.width*cat.scale)/2
-    cat.y = targetY - (cat.spriteDimension.height*cat.scale) / 2
-    cat.angle = 0
-    cat.speed = 300.0
+  for i = 1, groups do
+    table.insert(zombies, i, newZombie(posX,posY))
+  end
+  
+  cat = newCat()
 end
 
 function Gameplay_Update(dt)
