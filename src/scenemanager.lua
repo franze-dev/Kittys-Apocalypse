@@ -6,7 +6,7 @@ scenes = {
   over = 4
 }
 
-local currentScene = scenes.gamePlay
+local currentScene = scenes.menu
 
 function getCurrentScene()
     return currentScene
