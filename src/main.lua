@@ -1,6 +1,7 @@
 require "gameplayscene"
 require "menu"
 require "scenemanager"
+require "credits"
 
 function love.load()
   
@@ -16,6 +17,7 @@ function love.load()
     
   Gameplay_Init()
   Menu_Init()
+  Credits_Init()
 
 end
 
@@ -25,9 +27,18 @@ function love.update(dt)
     Gameplay_Update(dt)
   end
 
-  -- if getCurrentScene() == scenes.menu then
-  --   Menu_Update()
-  -- end
+  if getCurrentScene() == scenes.menuScene then
+    Menu_Update()
+  end
+
+  if getCurrentScene() == scenes.creditsScene then
+    Credits_Update()
+  end
+
+  if getCurrentScene() == scenes.overScene then
+    print("quitttttt")
+    love.event.quit()
+  end
 
 end
 
@@ -42,4 +53,7 @@ function love.draw()
     Menu_Draw()
   end
 
+  if getCurrentScene() == scenes.creditsScene then
+    Credits_Draw()
+  end
 end
