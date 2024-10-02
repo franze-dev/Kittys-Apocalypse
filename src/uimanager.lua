@@ -3,11 +3,11 @@
 function newText(x, y, content, size, fontDir, color)
     local text = {}
     text.content = content
-    text.font = love.graphics.newFont(fontDir, size)
+    text.love = love.graphics.newText(love.graphics.setNewFont(fontDir, size),content)
     text.x = x
     text.y = y
+    text.size = size
     text.color = color
-    text.love = love.graphics.newText(fontDir,content)
     return text
 end
 
@@ -25,12 +25,16 @@ function newButton(content, font, x, y, width, height, buttonColor, textColor)
     return button
 end
 
-function drawText(text, moveY, align)
-    love.graphics.setFont(text.font)
-    love.graphics.printf(text.content, text.x, text.y, moveY, align)
+function drawText(fontDir, text)
+   
+    love.graphics.setColor(text.color.r, text.color.g, text.color.b) 
+    love.graphics.setNewFont(fontDir, text.size)
+    love.graphics.print(text.content, text.x, text.y)
+
 end
 
 function drawButton(button)
+
     love.graphics.setColor(button.color.r, button.color.g, button.color.b, button.color.a)
     love.graphics.rectangle(button.x, button.y, button.width, button.height)
     love.graphics.setColor(button.text.color.r, button.text.color.g, button.text.color.b, button.text.color.a)
