@@ -55,7 +55,6 @@ function checkSceneChange(button, scene)
     if isMouseOnButton(button) then
         button.currentColor = button.highLight
         if love.mouse.isDown(1) then
-            print(scene)
             setCurrentScene(scene)
         end
     else
