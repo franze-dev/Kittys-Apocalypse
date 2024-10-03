@@ -118,4 +118,5 @@ function Gameplay_Draw()
 
     drawButton(pauseFont, pauseButton)
 
+    drawHealthbar(cat)
 end

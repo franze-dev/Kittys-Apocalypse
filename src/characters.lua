@@ -1,3 +1,5 @@
+require "healthbar"
+
 function animate(character, moveY)
 
     if animations.timer <= 0 then
@@ -31,12 +33,13 @@ function newCat()
 
     myCat.scale = 3
 
-    print(screenWidth, screenHeight)
-
     myCat.x = screenWidth / 2 - (myCat.spriteDimension.width * myCat.scale) / 2
     myCat.y = screenHeight / 2 - (myCat.spriteDimension.height * myCat.scale) / 2
     myCat.angle = 0
     myCat.speed = 300.0
+
+    myCat.healthbar = newHealthbar(myCat)
+
     return myCat
 end
 
@@ -174,7 +177,8 @@ function checkCatHit(myZombie, pos)
             cat.scale) and
             (myZombie.y + myZombie.dimensions * myZombie.scale2 >= cat.y and myZombie.y <= cat.y + cat.dimensions *
                 cat.scale) then
-
+            
+            decreaseHealth(cat)      
             table.remove(zombies, pos)
 
         end
