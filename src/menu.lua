@@ -55,7 +55,7 @@ function Menu_Update()
 
     checkSceneChange(creditsButton, scenes.creditsScene)
 
-    checkSceneChange(exitButton, scenes.overScene)
+    checkSceneChange(exitButton, scenes.exitScene)
 end
 
 function Menu_Draw()

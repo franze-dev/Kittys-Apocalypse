@@ -3,6 +3,7 @@ require "menu"
 require "scenemanager"
 require "credits"
 require "pauseOptions"
+require "gameoverscene"
 
 function love.load()
 
@@ -20,6 +21,7 @@ function love.load()
     Gameplay_Init()
     Credits_Init()
     Pause_Init()
+    GameOver_Init()
 
 end
 
@@ -48,7 +50,11 @@ function love.update(dt)
         Credits_Update()
     end
 
-    if getCurrentScene() == scenes.overScene then
+    if getCurrentScene() == scenes.gameOverScene then
+      GameOver_Update()
+    end
+
+    if getCurrentScene() == scenes.exitScene then
         love.event.quit()
     end
 
@@ -71,4 +77,9 @@ function love.draw()
     if getCurrentScene() == scenes.creditsScene then
         Credits_Draw()
     end
+
+    if getCurrentScene() == scenes.gameOverScene then
+      GameOver_Draw()
+    end
+
 end

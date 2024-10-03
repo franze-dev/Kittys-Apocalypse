@@ -3,10 +3,11 @@ scenes = {
     menuScene = 2,
     pausedScene = 3,
     creditsScene = 4,
-    overScene = 5
+    exitScene = 5,
+    gameOverScene = 6
 }
 
-local currentScene = scenes.menuScene
+local currentScene = scenes.gameOverScene
 local restart = true
 
 function getCurrentScene()

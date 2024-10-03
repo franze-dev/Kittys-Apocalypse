@@ -45,5 +45,5 @@ function drawHealthbar(character)
 end
 
 function isAlive(character)
-    return character.healthbar.width > 0
+    return character.healthbar.rect.width > 0
 end

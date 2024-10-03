@@ -39,7 +39,7 @@ end
 function Pause_Update()
     checkSceneChange(continueButton, scenes.gamePlayScene)
     checkSceneChange(backToMenuPauseButton, scenes.menuScene)
-    checkSceneChange(exitPauseButton, scenes.overScene)
+    checkSceneChange(exitPauseButton, scenes.exitScene)
 
 end
 

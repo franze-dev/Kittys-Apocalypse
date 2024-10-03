@@ -56,6 +56,7 @@ end
 
 function Gameplay_Update(dt)
 
+  if isAlive(cat) then
     checkSceneChange(pauseButton, scenes.pausedScene)
 
     zombieAttackTimer = zombieAttackTimer - dt
@@ -100,6 +101,10 @@ function Gameplay_Update(dt)
             end
         end
     end
+
+  else
+    setCurrentScene(scenes.gameOverScene)  
+  end
 
 end
 
