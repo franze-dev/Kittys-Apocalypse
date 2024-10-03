@@ -60,7 +60,15 @@ function Gameplay_Update(dt)
     myZomb = zombies[i]
     checkCatHit(myZomb, i)
   end
-    
+
+  for i = 1, #zombies do
+    if zombies[i].x ~= cat.x then
+      if (zombies[i].x > cat.x + cat.dimensions and zombies[i].scale1 < 0) or (zombies[i].x < cat.x  and zombies[i].scale1 > 0) then
+        zombies[i].scale1 = zombies[i].scale1 * -1
+      end
+    end
+  end
+
 end
 
 function Gameplay_Draw()
@@ -69,11 +77,7 @@ function Gameplay_Draw()
   love.graphics.setColor(1, 1, 1)
 
   for i = 1, #zombies do
-    if zombies[i].x < cat.x then
-      love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, zombies[i].scale)
-    else 
-       love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, -zombies[i].scale, zombies[i].scale)
-    end
+    love.graphics.draw(zombies[i].spriteSheet.sheet, zombies[i].sprite, zombies[i].x, zombies[i].y, zombies[i].angle, -zombies[i].scale1, zombies[i].scale2)
   end
   
   love.graphics.draw(cat.spriteSheet.sheet, cat.sprite, cat.x, cat.y, cat.angle, cat.scale)

@@ -61,13 +61,14 @@ function newZombie(x, y)
     zombie.angle = 0
     local randomSpeed = math.random(100, 300)
     zombie.speed = randomSpeed
-    zombie.scale = 3
+    zombie.scale1 = 3
+    zombie.scale2 = zombie.scale1
   
     return zombie
 end
   
 function moveZombie(zombie, dt)
-    local centerX, centerY = (zombie.spriteDimension.width*zombie.scale) / 2, (zombie.spriteDimension.height*zombie.scale) / 2 -- get center point
+    local centerX, centerY = (zombie.spriteDimension.width*zombie.scale2) / 2, (zombie.spriteDimension.height*zombie.scale2) / 2 -- get center point
   
     centerX = zombie.x + centerX
     centerY = zombie.y + centerY
@@ -81,7 +82,7 @@ function moveZombie(zombie, dt)
     math.floor(targetX)
     math.floor(targetY)
   
-    errorMargin = 5
+    local errorMargin = 5
   
     closeArea = targetX - 50
   
@@ -120,7 +121,7 @@ function checkZombieShot(myZombie, pos)
 
     if myZombie.x >= cat.x then
         zombieCorners.first = {
-          x = myZombie.x - myZombie.dimensions*myZombie.scale,
+          x = myZombie.x - myZombie.dimensions*myZombie.scale2,
           y = myZombie.y
         }
         zombieCorners.second = {
@@ -129,12 +130,12 @@ function checkZombieShot(myZombie, pos)
   
         }
         zombieCorners.third = {
-          x = myZombie.x - myZombie.dimensions*myZombie.scale,
-          y = myZombie.y + myZombie.dimensions*myZombie.scale
+          x = myZombie.x - myZombie.dimensions*myZombie.scale2,
+          y = myZombie.y + myZombie.dimensions*myZombie.scale2
         }
         zombieCorners.fourth = {
           x = myZombie.x,
-          y = myZombie.y + myZombie.dimensions*myZombie.scale
+          y = myZombie.y + myZombie.dimensions*myZombie.scale2
         }
     elseif myZombie.x < cat.x then
         zombieCorners.first = {
@@ -142,17 +143,17 @@ function checkZombieShot(myZombie, pos)
           y = myZombie.y
         }
         zombieCorners.second = {
-          x = myZombie.x + myZombie.dimensions*myZombie.scale,
+          x = myZombie.x + myZombie.dimensions*myZombie.scale2,
           y = myZombie.y
   
         }
         zombieCorners.third = {
           x = myZombie.x,
-          y = myZombie.y + myZombie.dimensions*myZombie.scale
+          y = myZombie.y + myZombie.dimensions*myZombie.scale2
         }
         zombieCorners.fourth = {
-          x = myZombie.x + myZombie.dimensions*myZombie.scale,
-          y = myZombie.y + myZombie.dimensions*myZombie.scale
+          x = myZombie.x + myZombie.dimensions*myZombie.scale2,
+          y = myZombie.y + myZombie.dimensions*myZombie.scale2
         }
       end
   
@@ -169,7 +170,7 @@ end
 function checkCatHit(myZombie, pos)
   
     if myZombie then
-      if (myZombie.x + myZombie.dimensions*myZombie.scale >= cat.x and myZombie.x <= cat.x + cat.dimensions*cat.scale) and (myZombie.y + myZombie.dimensions*myZombie.scale >= cat.y and myZombie.y <= cat.y + cat.dimensions*cat.scale) then
+      if (myZombie.x + myZombie.dimensions*myZombie.scale2 >= cat.x and myZombie.x <= cat.x + cat.dimensions*cat.scale) and (myZombie.y + myZombie.dimensions*myZombie.scale2 >= cat.y and myZombie.y <= cat.y + cat.dimensions*cat.scale) then
       
         table.remove(zombies, pos)
     
