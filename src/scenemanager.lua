@@ -7,7 +7,7 @@ scenes = {
     gameOverScene = 6
 }
 
-local currentScene = scenes.gameOverScene
+local currentScene = scenes.menuScene
 local restart = true
 
 function getCurrentScene()
