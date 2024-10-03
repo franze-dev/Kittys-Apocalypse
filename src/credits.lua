@@ -42,7 +42,7 @@ function Credits_Init()
     catCredits = "Three Color Cat: ToffeeBunny (Itch.io user)"
     zombie = "Zombies: IronnButterfly (Itch.io user)"
     shots = "Explosions: Boldo boldin (Itch.io user)"
-    bg = "Background: Henrique Baldo (ArtStation user)"
+    bg = "Background: Download from craftpix.net"
     table.insert(credits, 1, dev)
     table.insert(credits, 2, catCredits)
     table.insert(credits, 3, zombie)
@@ -81,7 +81,6 @@ function drawCreditsTextBlock()
     for i = 1, #credits do
         creditsPaddingY = startPaddingY
         baseY = baseY + creditsPaddingY + (creditsPaddingY * 1 / i)
-        print(baseY)
         text = newText(creditsButton.x + creditsPaddingX, baseY, credits[i], 20, creditsFont, generalTextColor)
         drawText(creditsFont, text)
     end
