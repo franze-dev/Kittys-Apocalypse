@@ -7,7 +7,7 @@ scenes = {
 }
 
 local currentScene = scenes.menuScene
-local paused = false
+local restart = true
 
 function getCurrentScene()
   return currentScene
@@ -19,18 +19,18 @@ function setCurrentScene(myScene)
   end
 end
 
-function isPaused()
-  return paused
-end
-
-function pause()
-  if not paused then
-    paused = true
+function restartGame()
+  if not restart then
+    restart = true
   end
 end
 
-function unPause()
-  if paused then
-    paused = false
+function isRestarted()
+  return restart
+end
+
+function revertRestart()
+  if restart then
+    restart = false
   end
 end

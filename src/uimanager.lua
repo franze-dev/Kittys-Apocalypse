@@ -55,6 +55,9 @@ function checkSceneChange(button, scene)
     if isMouseOnButton(button) then
         button.currentColor = button.highLight
         if love.mouse.isDown(1) then
+            if scene == scenes.menuScene then
+                restartGame()
+            end
             setCurrentScene(scene)
         end
     else

@@ -1,8 +1,10 @@
 require "characters"
+require "scenemanager"
 
 function Gameplay_Init()
   
   gameBackground = "res/sprites/background.png"
+  pauseFont = "res/fonts/BOYCOTT.ttf"
 
   zombieId = 0
   animations = {}
@@ -23,10 +25,39 @@ function Gameplay_Init()
   end
   
   cat = newCat()
+
+  local padding = 20
+
+  pauseButtonColor = {
+    r = 1.0,
+    g = 0.5,
+    b = 0.0,
+    a = 1.0
+  }
+
+  pauseHighlightColor = {
+    r = 0.6,
+    g = 0.0,
+    b = 0.0,
+    a = 0.7
+  }
+
+  pauseTextColor = {
+    r = 1.0,
+    g = 1.0,
+    b = 1.0,
+    a = 1.0
+  }
+
+  pauseButton = newButton("PAUSE", pauseFont, padding, padding, 60, 30, pauseButtonColor, pauseHighlightColor, pauseTextColor)
+
+
 end
 
 function Gameplay_Update(dt)
   
+  checkSceneChange(pauseButton, scenes.pausedScene)
+
   zombieAttackTimer = zombieAttackTimer - dt
   if #zombies == 0 or zombieAttackTimer <= 0 then
     if zombieAttackTimer <= 0 then
@@ -82,5 +113,7 @@ function Gameplay_Draw()
   
   love.graphics.draw(cat.spriteSheet.sheet, cat.sprite, cat.x, cat.y, cat.angle, cat.scale)
   love.graphics.setColor(1,0,0)
+
+  drawButton(pauseFont, pauseButton)
 
 end
