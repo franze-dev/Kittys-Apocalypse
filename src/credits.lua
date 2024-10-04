@@ -5,6 +5,7 @@ function Credits_Init()
 
     creditsTitleFont = "res/fonts/HennyPenny-Regular.otf"
     creditsFont = "res/fonts/GlacialIndifference-Regular.otf"
+    creditsBackground = "res/sprites/background2.png"
 
     creditsColor = {
         r = 1.0,
@@ -42,12 +43,15 @@ function Credits_Init()
     catCredits = "Three Color Cat: ToffeeBunny (Itch.io user)"
     zombie = "Zombies: IronnButterfly (Itch.io user)"
     shots = "Explosions: Boldo boldin (Itch.io user)"
-    bg = "Background: Download from craftpix.net"
+    bg1 = "Gameplay BG: Download from craftpix.net"
+    bg2 = "Menu BG: PixelFranek (Itch.io user)"
+
     table.insert(credits, 1, dev)
     table.insert(credits, 2, catCredits)
     table.insert(credits, 3, zombie)
     table.insert(credits, 4, shots)
-    table.insert(credits, 5, bg)
+    table.insert(credits, 5, bg1)
+    table.insert(credits, 6, bg2)
 
 end
 
@@ -58,6 +62,8 @@ function Credits_Update()
 end
 
 function Credits_Draw()
+
+    drawBackground(creditsBackground)
 
     drawText(creditsTitleFont, creditsTitle)
 
