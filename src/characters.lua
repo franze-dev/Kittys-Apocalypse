@@ -1,4 +1,5 @@
 require "healthbar"
+require "scoreManager"
 
 function animate(character, moveY)
 
@@ -163,6 +164,7 @@ function checkZombieShot(myZombie, pos)
         if mousePosX >= zombieCorners.first.x and mousePosX <= zombieCorners.second.x and mousePosY >=
             zombieCorners.first.y and mousePosY <= zombieCorners.fourth.y then
             if love.mouse.isDown(leftClick) then
+                addScore()
                 table.remove(zombies, pos)
             end
         end

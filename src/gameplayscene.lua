@@ -1,7 +1,10 @@
 require "characters"
 require "scenemanager"
+require "scoreManager"
 
 function Gameplay_Init()
+
+    resetScore()
 
     gameBackground = "res/sprites/background1.png"
     pauseFont = "res/fonts/BOYCOTT.ttf"
@@ -14,7 +17,7 @@ function Gameplay_Init()
 
     zombieCoolDown = 1
     zombieAttackTimer = 1 / zombieCoolDown
-    groups = 2
+    groups = 3
 
     zombies = {}
 
@@ -124,4 +127,7 @@ function Gameplay_Draw()
     drawButton(pauseFont, pauseButton)
 
     drawHealthbar(cat)
+
+    love.graphics.print(getScore(), 10, screenHeight - 50, 0, 2,2)
+
 end
