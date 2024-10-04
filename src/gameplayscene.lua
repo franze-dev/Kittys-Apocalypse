@@ -3,7 +3,7 @@ require "scenemanager"
 
 function Gameplay_Init()
 
-    gameBackground = "res/sprites/background.png"
+    gameBackground = "res/sprites/background1.png"
     pauseFont = "res/fonts/BOYCOTT.ttf"
 
     zombieId = 0
