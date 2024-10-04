@@ -1,9 +1,9 @@
-require "gameplayscene"
-require "menu"
-require "scenemanager"
-require "credits"
-require "pauseOptions"
-require "gameoverscene"
+require "src/gameplayscene"
+require "src/menu"
+require "src/scenemanager"
+require "src/credits"
+require "src/pauseOptions"
+require "src/gameoverscene"
 
 function love.load()
 

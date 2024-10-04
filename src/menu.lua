@@ -1,5 +1,5 @@
-require "uimanager"
-require "scenemanager"
+require "src/uimanager"
+require "src/scenemanager"
 
 function Menu_Init()
 

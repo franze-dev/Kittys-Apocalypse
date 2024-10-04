@@ -1,6 +1,6 @@
-require "characters"
-require "scenemanager"
-require "scoreManager"
+require "src/characters"
+require "src/scenemanager"
+require "src/scoreManager"
 
 function Gameplay_Init()
 

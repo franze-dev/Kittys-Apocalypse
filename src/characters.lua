@@ -1,5 +1,5 @@
-require "healthbar"
-require "scoreManager"
+require "src/healthbar"
+require "src/scoreManager"
 
 function animate(character, moveY)
 
